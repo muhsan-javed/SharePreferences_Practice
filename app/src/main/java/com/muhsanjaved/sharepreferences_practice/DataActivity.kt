@@ -2,6 +2,7 @@ package com.muhsanjaved.sharepreferences_practice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.gson.Gson
 import com.muhsanjaved.sharepreferences_practice.databinding.ActivityDataBinding
 
 class DataActivity : AppCompatActivity() {
@@ -12,8 +13,10 @@ class DataActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val editor=getSharedPreferences("MY_SETTING", MODE_PRIVATE)
-        binding.textViewEmail.setText("Hey your E-mail is ${editor.getString("email",null)}" )
+        val user = Gson().fromJson(editor.getString("USER_DATA",null),User::class.java)
 
-        binding.textViewPassword.text = "Hey your Password is ${editor.getString("password",null)}"
+        binding.textViewEmail.setText("Hey your E-mail is ${user.email}" )
+
+        binding.textViewPassword.text = "Hey your Password is ${user.password}"
     }
 }
